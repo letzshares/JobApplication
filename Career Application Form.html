@@ -1,0 +1,303 @@
+<html><head><base href="https://example.com">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional HR Job Application Portal</title>
+<style>
+:root {
+    --primary: #2c3e50;
+    --secondary: #3498db;
+    --accent: #e74c3c;
+    --light: #ecf0f1;
+    --success: #2ecc71;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    background: #f5f7fa;
+    color: var(--primary);
+}
+
+.banner {
+    width: 100%;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+}
+
+.banner-slider {
+    width: 300%;
+    height: 100%;
+    display: flex;
+    animation: slide 15s infinite;
+}
+
+.banner img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+@keyframes slide {
+    0%, 33% { transform: translateX(0); }
+    34%, 66% { transform: translateX(-33.33%); }
+    67%, 100% { transform: translateX(-66.66%); }
+}
+
+.container {
+    max-width: 1000px;
+    margin: -50px auto 50px;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--primary);
+}
+
+.required::after {
+    content: "*";
+    color: var(--accent);
+    margin-left: 4px;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--secondary);
+}
+
+.file-upload {
+    border: 2px dashed #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.file-upload:hover {
+    border-color: var(--secondary);
+    background: var(--light);
+}
+
+.file-info {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 5px;
+}
+
+button {
+    background: var(--secondary);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    width: 100%;
+    margin-top: 20px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    background: #2980b9;
+}
+
+.success-message {
+    display: none;
+    background: var(--success);
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: center;
+}
+</style>
+</head>
+<body>
+<div class="banner">
+    <div class="banner-slider">
+        <img src="/a/e42b18cd-2729-49f1-909c-9c2e6d93a63b" alt="Professional office environment with modern workspace" />
+        <img src="/a/c0a4995e-ea13-4ab2-99af-d53b4e53467b" alt="Team collaboration in modern office setting" />
+        <img src="/a/bc703ca7-b8ff-4fbf-ae26-5def1b9d93bf" alt="Corporate workplace with technology integration" />
+    </div>
+</div>
+
+<div class="container">
+    <h1>Career Application Form</h1>
+    <form id="jobApplication" onsubmit="return handleSubmit(event)">
+        <div class="form-group">
+            <label class="required">Name as per NRIC/Passport</label>
+            <input type="text" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label class="required">Email Address</label>
+            <input type="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label class="required">Mobile Phone Number</label>
+            <input type="tel" name="phone" pattern="[0-9]+" required>
+        </div>
+
+        <div class="form-group">
+            <label class="required">Position</label>
+            <select name="position" required>
+                <option value="">Select Position</option>
+                <option value="software-engineer">Software Engineer</option>
+                <option value="project-manager">Project Manager</option>
+                <option value="business-analyst">Business Analyst</option>
+                <option value="data-scientist">Data Scientist</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="required">Nationality</label>
+            <select name="nationality" required>
+                <option value="">Select Nationality</option>
+                <option value="malaysian-bumi">Malaysian Bumi</option>
+                <option value="malaysian-non-bumi">Malaysian Non-Bumi</option>
+                <option value="expatriate">Expatriate</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="required">Level of Qualification</label>
+            <select name="qualification" required>
+                <option value="">Select Qualification</option>
+                <option value="spm">SPM</option>
+                <option value="diploma">Diploma</option>
+                <option value="bachelor">Bachelor Degree</option>
+                <option value="master">Master</option>
+                <option value="phd">PhD</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Field of Study</label>
+            <input type="text" name="fieldOfStudy">
+        </div>
+
+        <div class="form-group">
+            <label class="required">Resume/CV</label>
+            <div class="file-upload">
+                <input type="file" name="resume" accept=".pdf" required>
+                <div class="file-info">Maximum file size: 5MB (PDF only)</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="required">Certificates and Transcript</label>
+            <div class="file-upload">
+                <input type="file" name="certificates" accept=".pdf" required>
+                <div class="file-info">Maximum file size: 5MB (Single PDF file only)</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Key Selection Criteria (Optional)</label>
+            <div class="file-upload">
+                <input type="file" name="criteria" accept=".pdf">
+                <div class="file-info">Maximum file size: 5MB (PDF only)</div>
+            </div>
+        </div>
+
+        <button type="submit">Submit Application</button>
+    </form>
+    <div id="successMessage" class="success-message">
+        Your application has been submitted successfully! You will receive a confirmation email shortly.
+    </div>
+</div>
+
+<script>
+function validateFileSize(file, maxSize) {
+    const fileSize = file.size / 1024 / 1024; // Convert to MB
+    return fileSize <= maxSize;
+}
+
+function handleSubmit(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    const resume = formData.get('resume');
+    const certificates = formData.get('certificates');
+    const criteria = formData.get('criteria');
+
+    // Validate file sizes
+    if (!validateFileSize(resume, 5)) {
+        alert('Resume file size must be less than 5MB');
+        return false;
+    }
+    if (!validateFileSize(certificates, 5)) {
+        alert('Certificates file size must be less than 5MB');
+        return false;
+    }
+    if (criteria && !validateFileSize(criteria, 5)) {
+        alert('Key Selection Criteria file size must be less than 5MB');
+        return false;
+    }
+
+    // In a real application, you would send this data to your server
+    // Simulating server response
+    setTimeout(() => {
+        const successMessage = document.getElementById('successMessage');
+        successMessage.style.display = 'block';
+        event.target.reset();
+        
+        // Send email notification (simulated)
+        console.log('Sending email notification to:', formData.get('email'));
+        
+        // Scroll to success message
+        successMessage.scrollIntoView({ behavior: 'smooth' });
+    }, 1500);
+
+    return false;
+}
+
+// Add animation to file upload areas
+document.querySelectorAll('.file-upload input[type="file"]').forEach(input => {
+    input.addEventListener('change', function() {
+        const parent = this.parentElement;
+        if (this.files.length > 0) {
+            parent.style.borderColor = '#2ecc71';
+            parent.style.background = '#f7fdf9';
+        } else {
+            parent.style.borderColor = '#ddd';
+            parent.style.background = 'transparent';
+        }
+    });
+});
+</script>
+</body></html>
