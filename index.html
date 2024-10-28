@@ -1,0 +1,406 @@
+<html><head><base href="https://example.com">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<title>HR Admin Document Management System</title>
+<style>
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #f5f7fa;
+}
+
+.admin-dashboard {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+}
+
+.sidebar {
+    background: #2c3e50;
+    color: white;
+    padding: 20px;
+}
+
+.main-content {
+    padding: 30px;
+}
+
+.folder-nav {
+    margin: 20px 0;
+}
+
+.folder {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 2px 0;
+    transition: background 0.2s;
+    color: #ecf0f1;
+}
+
+.folder:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.subfolder {
+    margin-left: 20px;
+}
+
+.document-viewer {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+
+/*Breadcrumb styling */
+.breadcrumb {
+    background-color: #f8f9fa; /* Light background */
+    padding: 10px 20px; /* Padding around the breadcrumb */
+    border-bottom: 1px solid #dee2e6; /* Light border */
+    position: sticky; /* Stick to the top */
+    top: 0; /* Align to the top of the viewport */
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: #007bff; /* Bootstrap primary color */
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb span {
+    color: #6c757d; /* Grey color for the current folder */
+}
+
+.search-filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.applications-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.applications-table th,
+.applications-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.applications-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.btn-primary {
+    background: #3498db;
+    color: white;
+}
+
+.btn-success {
+    background: #2ecc71;
+    color: white;
+}
+
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.85em;
+}
+
+.status-complete {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-incomplete {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.document-list {
+    list-style: none;
+    margin: 10px 0;
+}
+
+.document-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border: 1px solid #eee;
+    margin: 4px 0;
+    border-radius: 4px;
+}
+
+.document-icon {
+    margin-right: 10px;
+}
+</style>
+</head>
+<body>
+<div class="admin-dashboard">
+    
+    <div class="sidebar">
+        <h2>HR Admin Dashboard</h2>
+        <div class="nav-item">Dashboard</div>
+        
+            <div class="folder-nav">
+                <div class="nav-item"><h3>Document Management</h3></div>
+                <div class="folder">📁 Job Applications
+                    <div class="subfolder">
+                        <div class="folder">01. FBDA
+                            <div class="subfolder">
+                                <div class="folder">2024
+                                    <div class="subfolder">
+                                        <div class="folder">Manager</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="folder">02. FECS</div>
+                        <div class="folder">03. SFS</div>
+                        <div class="folder">04. School of Research</div>
+                        <div class="folder">05. HR</div>
+                        <div class="folder">06. IT</div>
+                    </div>
+                </div>
+            </div>
+        <div class="nav-item"><h3>Reports</h3></div>
+        <div class="nav-item"><h3>Settings</h3></div>
+   
+    
+    </div>
+
+    <div class="main-content">
+        <div class="breadcrumb">
+            <a href="#">Document Management</a> &gt; 
+            <a href="#">Job Applications</a> &gt; 
+            <a href="#">01. FBDA</a> &gt; 
+            <a href="#">2024</a> &gt; 
+            <span>Manager Position</span>
+        </div>
+        <div class="document-viewer">
+            <div class="search-filters">
+                <input type="text" class="search-input" placeholder="Search applications...">
+                <select class="btn">
+                    <option>All Units</option>
+                    <option>FBDA</option>
+                    <option>FECS</option>
+                    <option>SFS</option>
+                </select>
+            
+                <button class="btn btn-primary">Filter</button>
+            </div>
+
+            <table class="applications-table">
+                <thead>
+                    <tr>
+                        <th>Folder Name</th>
+                        <th>Unit</th>
+                        <th>Position</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>B-A002-John-Doe-Manager</td>
+                        <td>FBDA</td>
+                        <td>Manager</td>
+                        <td>
+                            <span class="status-badge status-complete">Complete</span>
+                        </td>
+                        <!-- <td>
+                            <button class="btn btn-primary" onclick="viewDocuments('B-A002')"><span class="glyphicon glyphicon-eye-open"></span></button>
+                            <button class="btn btn-primary" onclick="closeDocuments('B-A002')"><span class="glyphicon glyphicon-eye-close"></span></button>
+                        </td> -->
+                        <td>
+                            <button id="toggleButton" class="btn btn-primary" onclick="toggleDocuments('B-A002')">
+                                <span class="glyphicon glyphicon-eye-open"></span> View
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <td>PhD-A001-Johnny-Tim</td>
+                        <td>School of Research</td>
+                        <td>Research Director</td>
+                        <td>
+                            <span class="status-badge status-incomplete">Incomplete</span>
+                        </td>
+                        <td>Pending</td>
+                        <td>
+                            <button class="btn btn-primary" onclick="viewDocuments('PhD-A001')">View</button>
+                        </td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="documentViewer" class="document-viewer" style="display: none;">
+            <h3>Application Documents</h3>
+            <ul class="document-list">
+                <li class="document-item">
+                    <span class="document-icon">📄</span>
+                    Resume.pdf
+                    <button class="btn btn-primary" style="margin-left: auto;"><span class="glyphicon glyphicon-eye-open"></span> View</button>
+                    <button class="btn btn-success" style="margin-left: 10px;"><span class="glyphicon glyphicon-download-alt"></span> Download</button>
+                </li>
+                <li class="document-item">
+                    <span class="document-icon">📄</span>
+                    Academic_Transcripts.pdf
+                    <button class="btn btn-primary" style="margin-left: auto;"><span class="glyphicon glyphicon-eye-open"></span> View</button>
+                    <button class="btn btn-success" style="margin-left: 10px;"><span class="glyphicon glyphicon-download-alt"></span> Download</button>
+                </li>
+                <li class="document-item">
+                    <span class="document-icon">📄</span>
+                    Certificates.pdf
+                    <button class="btn btn-primary" style="margin-left: auto;"><span class="glyphicon glyphicon-eye-open"></span> View</button>
+                    <button class="btn btn-success" style="margin-left: 10px;"><span class="glyphicon glyphicon-download-alt"></span> Download</button>
+                </li>
+                <li class="document-item">
+                    <span class="document-icon">📄</span>
+                    Selection_Criteria.pdf
+                    <button class="btn btn-primary" style="margin-left: auto;"><span class="glyphicon glyphicon-eye-open"></span> View</button>
+                    <button class="btn btn-success" style="margin-left: 10px;"><span class="glyphicon glyphicon-download-alt"></span> Download</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+const mockApplications = {
+    'B-A002': {
+        name: 'John Doe',
+        unit: 'FBDA',
+        position: 'Manager',
+        documents: {
+            resume: true,
+            transcripts: true,
+            certificates: true,
+            criteria: true
+        }
+    },
+    'PhD-A001': {
+        name: 'Johnny Tim',
+        unit: 'School of Research',
+        position: 'Research Director',
+        documents: {
+            resume: true,
+            transcripts: true,
+            certificates: false,
+            criteria: true
+        }
+    }
+};
+
+function viewDocuments(id) {
+    const viewer = document.getElementById('documentViewer');
+    viewer.style.display = 'block';
+    
+    // In a real implementation, this would fetch the actual documents
+    // from the server and populate the document list dynamically
+    
+    console.log(`Viewing documents for application ${id}`);
+}
+
+function closeDocuments() {
+    const viewer = document.getElementById('documentViewer');
+    viewer.style.display = 'none';  // Hide the document viewer
+    
+    console.log('Closing document viewer');
+}
+
+document.querySelector('.search-input').addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    const rows = document.querySelectorAll('.applications-table tbody tr');
+    
+    rows.forEach(row => {
+        const folderName = row.cells[0].textContent.toLowerCase();
+        row.style.display = folderName.includes(searchTerm) ? '' : 'none';
+    });
+});
+
+// Folder navigation
+document.querySelectorAll('.folder').forEach(folder => {
+    folder.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const subfolder = folder.querySelector('.subfolder');
+        if (subfolder) {
+            subfolder.style.display = 
+                subfolder.style.display === 'none' ? 'block' : 'none';
+        }
+    });
+});
+
+function downloadDocument(docType, appId) {
+    // Simulate document download
+    console.log(`Downloading ${docType} for application ${appId}`);
+    alert(`Starting download: ${docType}`);
+}
+
+function toggleDocuments(id) {
+    const viewer = document.getElementById('documentViewer');
+    const button = document.getElementById('toggleButton');
+    
+    if (viewer.style.display === 'none') {
+        viewer.style.display = 'block';
+        button.innerHTML = '<span class="glyphicon glyphicon-eye-close"></span> Close';
+        console.log(`Viewing documents for application ${id}`);
+    } else {
+        viewer.style.display = 'none';
+        button.innerHTML = '<span class="glyphicon glyphicon-eye-open"></span> View';
+        console.log(`Closing documents for application ${id}`);
+    }
+}
+// function viewDocument(docType, appId) {
+//     // Simulate document viewer
+//     console.log(`Opening viewer for ${docType}, application ${appId}`);
+//     window.open('#', 'documentViewer', 'width=800,height=600');
+// }
+
+// function closeDocuments(id) {
+//     const viewer = document.getElementById('documentViewer');
+//     viewer.style.display = 'none'; // Hide the document viewer
+
+//     console.log(`Closing documents for application ${id}`);
+// }
+</script>
+</body></html>
