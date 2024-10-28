@@ -155,6 +155,67 @@ body {
     color: #c62828;
 }
 
+/* for Status change Modalbox Style*/
+.modal {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.5); /* Background overlay */
+}
+
+.modal-content {
+    background-color: #fefefe; 
+    margin: 15% auto; 
+    padding: 20px; 
+    border: 1px solid #888; 
+    width: 300px; 
+    text-align: center;
+}
+
+.close {
+    color: #aaa; 
+    float: right; 
+    font-size: 28px; 
+    font-weight: bold; 
+}
+
+.updatebtn{
+   color: green;
+    background-color:aliceblue;
+    font-weight: bold;
+}
+
+
+
+.close:hover,
+.close:focus {
+    color: black; 
+    text-decoration: none; 
+    cursor: pointer;
+}
+
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+}
+
+.status-complete {
+    background-color: green; /* Green for complete */
+}
+
+.status-pending {
+    background-color: orange; /* Orange for pending */
+}
+/* Ending for Status change Style*/
+
 .document-list {
     list-style: none;
     margin: 10px 0;
@@ -179,33 +240,12 @@ body {
     
     <div class="sidebar">
         <h2>HR Admin Dashboard</h2>
-        <div class="nav-item">Dashboard</div>
-        
-            <div class="folder-nav">
-                <div class="nav-item"><h3>Document Management</h3></div>
-                <div class="folder">📁 Job Applications
-                    <div class="subfolder">
-                        <div class="folder">01. FBDA
-                            <div class="subfolder">
-                                <div class="folder">2024
-                                    <div class="subfolder">
-                                        <div class="folder">Manager</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="folder">02. FECS</div>
-                        <div class="folder">03. SFS</div>
-                        <div class="folder">04. School of Research</div>
-                        <div class="folder">05. HR</div>
-                        <div class="folder">06. IT</div>
-                    </div>
-                </div>
-            </div>
+        <div class="folder-nav">
+            <div class="nav-item"><h3>Document Management</h3></div>
+        </div>
         <div class="nav-item"><h3>Reports</h3></div>
+        <div class="nav-item"><h3>Audit</h3></div>
         <div class="nav-item"><h3>Settings</h3></div>
-   
-    
     </div>
 
     <div class="main-content">
@@ -247,30 +287,34 @@ body {
                         <td>
                             <span class="status-badge status-complete">Complete</span>
                         </td>
-                        <!-- <td>
-                            <button class="btn btn-primary" onclick="viewDocuments('B-A002')"><span class="glyphicon glyphicon-eye-open"></span></button>
-                            <button class="btn btn-primary" onclick="closeDocuments('B-A002')"><span class="glyphicon glyphicon-eye-close"></span></button>
-                        </td> -->
+                        
                         <td>
                             <button id="toggleButton" class="btn btn-primary" onclick="toggleDocuments('B-A002')">
                                 <span class="glyphicon glyphicon-eye-open"></span> View
                             </button>
+                            <button id="editButton" class="btn btn-primary" onclick="showEditModal('B-A002')">
+                                <span class="glyphicon glyphicon-edit"></span> Edit
+                            </button>
                         </td>
+                    
                     </tr>
-                    <!-- <tr>
-                        <td>PhD-A001-Johnny-Tim</td>
-                        <td>School of Research</td>
-                        <td>Research Director</td>
-                        <td>
-                            <span class="status-badge status-incomplete">Incomplete</span>
-                        </td>
-                        <td>Pending</td>
-                        <td>
-                            <button class="btn btn-primary" onclick="viewDocuments('PhD-A001')">View</button>
-                        </td>
-                    </tr> -->
+                    
                 </tbody>
             </table>
+        </div>
+
+        <div id="editModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Update Status</h2>
+                <span><p>Select the Drop-down to modify the status.</p></span>
+                <label for="statusSelect">Select Status:</label>
+                <select id="statusSelect">
+                    <option value="Complete">Complete</option>
+                    <option value="Pending">Pending</option>
+                </select>
+                <button onclick="updateStatus('B-A002')" class="updatebtn">Update</button>
+            </div>
         </div>
 
         <div id="documentViewer" class="document-viewer" style="display: none;">
@@ -390,6 +434,38 @@ function toggleDocuments(id) {
         console.log(`Closing documents for application ${id}`);
     }
 }
+
+
+/*Modal Box*/
+function showEditModal(id) {
+    // Open the modal
+    document.getElementById('editModal').style.display = 'block';
+    // Store the ID for later use
+    window.currentId = id;
+}
+
+function closeModal() {
+    // Close the modal
+    document.getElementById('editModal').style.display = 'none';
+}
+
+function updateStatus(id) {
+    const statusSelect = document.getElementById('statusSelect');
+    const newStatus = statusSelect.value;
+
+    // Update the status display
+    const statusBadge = document.querySelector(`.status-badge`);
+    if (statusBadge) {
+        statusBadge.textContent = newStatus;
+        statusBadge.className = `status-badge status-${newStatus.toLowerCase()}`;
+    }
+    
+    alert(`Status updated to "${newStatus}" for ${id}.`);
+    closeModal(); // Close the modal after updating
+}
+/*End Modal Box*/
+
+
 // function viewDocument(docType, appId) {
 //     // Simulate document viewer
 //     console.log(`Opening viewer for ${docType}, application ${appId}`);
